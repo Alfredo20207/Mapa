@@ -2,25 +2,24 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 
-# 1. Configuración de la página (Pestaña del navegador)
+# 1. configuracion de la pestañanavegador
 st.set_page_config(page_title="Dashboard de Ventas", layout="wide")
 
-# 2. Título principal
-st.title("🗺️ Dashboard Interactivo de Ventas en México")
+# 2. titulo
+st.title(" Dashboard Interactivo de Ventas en México")
 st.markdown("Este es un proyecto para mi portafolio mostrando Pandas, Plotly y Streamlit.")
 
-# 3. Cargar los datos
-# Usamos cache para que la app sea más rápida y no lea el CSV en cada clic
+# 3. cargamos datos, y usamos cache para que no carge el csv a cada rato
 @st.cache_data
 def load_data():
     return pd.read_csv('mapas_mexico.csv')
 
 df = load_data()
 
-# 4. Crear una barra lateral (Sidebar) para los controles interactivos
+# 4. barra lateral interactiva
 st.sidebar.header("Filtros")
 
-# Slider para filtrar por ventas
+# slider para filtrar ventas
 ventas_minimas = st.sidebar.slider(
     "Filtrar por Ventas Mínimas:",
     min_value=int(df["Ventas_Anuales"].min()),
@@ -28,7 +27,7 @@ ventas_minimas = st.sidebar.slider(
     value=400 # Valor por defecto
 )
 
-# 5. Filtrar el DataFrame basado en el Slider
+# 5. filtrar el data frame deacuerdo al slider
 df_filtrado = df[df["Ventas_Anuales"] >= ventas_minimas]
 
 # 6. Crear el diseño en 2 columnas para el mapa y los datos
